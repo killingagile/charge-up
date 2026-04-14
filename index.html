@@ -178,18 +178,6 @@
   .check { color: #22c55e; font-weight: 700; margin-right: 0.3rem; }
   .cross { color: #ef4444; font-weight: 700; margin-right: 0.3rem; }
 
-  .roi-section { background: var(--surface); }
-  .roi-card { background: var(--white); border-radius: var(--radius); padding: 3rem; max-width: 680px; border: 1px solid var(--border); }
-  .roi-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-  .roi-row:last-of-type { border-bottom: none; }
-  .roi-label { font-size: 0.9rem; color: var(--ink-mid); }
-  .roi-slider { flex: 1; min-width: 160px; max-width: 200px; accent-color: var(--accent); cursor: pointer; }
-  .roi-val { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; min-width: 60px; text-align: right; }
-  .roi-result { margin-top: 1.5rem; background: var(--accent-light); border-radius: var(--radius-sm); padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-left: 4px solid var(--accent); }
-  .roi-result-label { font-size: 0.85rem; color: var(--ink-mid); }
-  .roi-result-number { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--accent); line-height: 1; }
-  .roi-note { font-size: 0.72rem; color: var(--ink-light); margin-top: 0.75rem; font-style: italic; }
-
   .contact-section { background: var(--white); position: relative; overflow: hidden; }
   .contact-section::before { content: ''; position: absolute; top: 0; right: 0; width: 400px; height: 400px; background: radial-gradient(circle at 80% 20%, rgba(232,68,10,0.06), transparent 60%); pointer-events: none; }
   .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
@@ -398,38 +386,7 @@
   </div>
 </section>
 
-<section class="roi-section">
-  <div class="container">
-    <div class="section-label reveal">Rough numbers</div>
-    <h2 class="reveal">What could it earn for you?</h2>
-    <p class="section-sub reveal">Adjust the sliders to get a rough sense of potential monthly rental income.</p>
-    <div class="roi-card reveal">
-      <div class="roi-row">
-        <div class="roi-label">Daily customers</div>
-        <input type="range" class="roi-slider" id="customers" min="50" max="500" step="10" value="150">
-        <div class="roi-val" id="customers-val">150</div>
-      </div>
-      <div class="roi-row">
-        <div class="roi-label">% who rent a power bank</div>
-        <input type="range" class="roi-slider" id="rate" min="1" max="15" step="0.5" value="5">
-        <div class="roi-val" id="rate-val">5%</div>
-      </div>
-      <div class="roi-row">
-        <div class="roi-label">Rental price ($/use)</div>
-        <input type="range" class="roi-slider" id="price" min="2" max="8" step="0.5" value="3">
-        <div class="roi-val" id="price-val">$3</div>
-      </div>
-      <div class="roi-result">
-        <div>
-          <div class="roi-result-label">Estimated monthly revenue</div>
-          <div class="roi-result-number" id="roi-output">$675</div>
-        </div>
-        <a href="#contact" class="btn-primary">Get real numbers →</a>
-      </div>
-      <p class="roi-note">Illustrative only. Actual results depend on venue type, location and model chosen. Contact us for a tailored estimate.</p>
-    </div>
-  </div>
-</section>
+
 
 <section class="contact-section" id="contact">
   <div class="container">
@@ -496,27 +453,6 @@
 </div>
 
 <script>
-  const customersEl = document.getElementById('customers');
-  const rateEl = document.getElementById('rate');
-  const priceEl = document.getElementById('price');
-  const customersVal = document.getElementById('customers-val');
-  const rateVal = document.getElementById('rate-val');
-  const priceVal = document.getElementById('price-val');
-  const roiOutput = document.getElementById('roi-output');
-
-  function calcROI() {
-    const c = +customersEl.value;
-    const r = +rateEl.value / 100;
-    const p = +priceEl.value;
-    const monthly = Math.round(c * r * p * 30);
-    roiOutput.textContent = '$' + monthly.toLocaleString();
-    customersVal.textContent = c;
-    rateVal.textContent = rateEl.value + '%';
-    priceVal.textContent = '$' + priceEl.value;
-  }
-
-  [customersEl, rateEl, priceEl].forEach(el => el.addEventListener('input', calcROI));
-
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
