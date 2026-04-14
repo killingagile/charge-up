@@ -6,28 +6,28 @@
 <title>WattMate — Power Bank Rental for Hospitality Venues</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   /* ── Reset & tokens ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --cream:   #f7f3ee;
-    --ink:     #1a1714;
-    --ink-mid: #2d2926;
-    --red:     #e03b1f;
-    --red-dk:  #b82e15;
-    --red-lt:  #f5ded9;
-    --warm:    #f0ebe4;
-    --muted:   #7a6f68;
-    --border:  #e0d8d0;
+    --cream:   #f5f5f5;
+    --ink:     #111111;
+    --ink-mid: #1e1e1e;
+    --red:     #f5c400;
+    --red-dk:  #d4a800;
+    --red-lt:  #fff8d6;
+    --warm:    #f0f0f0;
+    --muted:   #666666;
+    --border:  #dedede;
     --white:   #ffffff;
-    --serif:   'DM Serif Display', Georgia, serif;
-    --sans:    'DM Sans', system-ui, sans-serif;
+    --serif:   'Barlow Condensed', Impact, sans-serif;
+    --sans:    'Barlow', system-ui, sans-serif;
     --r-sm:    8px;
     --r-md:    14px;
     --r-lg:    20px;
-    --shadow:  0 4px 24px rgba(26,23,20,.09);
-    --shadow-lg: 0 12px 48px rgba(26,23,20,.14);
+    --shadow:  0 4px 24px rgba(0,0,0,.08);
+    --shadow-lg: 0 12px 48px rgba(0,0,0,.13);
   }
   html { scroll-behavior: smooth; font-size: 16px; }
   body {
@@ -59,7 +59,7 @@
   ──────────────────────────────────────────── */
   nav {
     position: sticky; top: 0; z-index: 200;
-    background: rgba(247,243,238,.95);
+    background: rgba(245,245,245,.97);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
     padding: 0 0;
@@ -70,11 +70,15 @@
   }
   .nav-logo {
     font-family: var(--serif);
-    font-size: 1.3rem;
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -.01em;
     color: var(--ink);
     flex-shrink: 0;
+    text-transform: uppercase;
   }
-  .nav-logo span { color: var(--red); }
+  .nav-logo .bolt { color: var(--red); margin: 0 1px; font-style: normal; }
+  .nav-logo span { color: var(--ink); }
   .nav-links {
     display: flex; gap: 28px; margin-left: auto;
     font-size: .9rem; font-weight: 500; letter-spacing: .01em;
@@ -83,9 +87,9 @@
   .nav-links a:hover { color: var(--ink); }
   .btn-demo-nav {
     margin-left: 8px;
-    background: var(--red); color: var(--white);
+    background: var(--red); color: var(--ink);
     padding: 9px 20px; border-radius: var(--r-sm);
-    font-size: .875rem; font-weight: 600;
+    font-size: .875rem; font-weight: 700;
     transition: background .2s, transform .15s;
     white-space: nowrap; flex-shrink: 0;
   }
@@ -105,7 +109,7 @@
   .hero::before {
     content: '';
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 60% at 80% 30%, rgba(224,59,31,.07) 0%, transparent 70%);
+    background: radial-gradient(ellipse 70% 60% at 80% 30%, rgba(245,196,0,.09) 0%, transparent 70%);
     pointer-events: none;
   }
   .hero-inner {
@@ -129,9 +133,11 @@
   }
   .hero h1 {
     font-family: var(--serif);
-    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
-    line-height: 1.1;
-    letter-spacing: -.02em;
+    font-size: clamp(2.8rem, 5.5vw, 4.4rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
     color: var(--ink);
     margin-bottom: 20px;
   }
@@ -142,13 +148,13 @@
   }
   .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
   .btn-primary {
-    background: var(--red); color: var(--white);
+    background: var(--red); color: var(--ink);
     padding: 14px 28px; border-radius: var(--r-sm);
-    font-weight: 600; font-size: .975rem;
+    font-weight: 700; font-size: .975rem;
     transition: background .2s, transform .15s, box-shadow .2s;
-    box-shadow: 0 4px 16px rgba(224,59,31,.3);
+    box-shadow: 0 4px 16px rgba(245,196,0,.35);
   }
-  .btn-primary:hover { background: var(--red-dk); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(224,59,31,.38); }
+  .btn-primary:hover { background: var(--red-dk); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(245,196,0,.45); }
   .btn-secondary {
     background: transparent; color: var(--ink);
     padding: 14px 28px; border-radius: var(--r-sm);
@@ -193,7 +199,7 @@
     position: absolute;
     width: 240px; height: 270px;
     left: 20px; top: 15px;
-    background: linear-gradient(145deg, #2d2926 0%, #1a1714 60%, #222 100%);
+    background: linear-gradient(145deg, #222222 0%, #111111 60%, #1a1a1a 100%);
     border-radius: 18px;
     box-shadow: 0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
   }
@@ -207,7 +213,7 @@
     display: flex; align-items: center; justify-content: center;
   }
   .station-label::after {
-    content: 'WattMate';
+    content: 'WattMate ⚡';
     font-family: var(--serif); font-size: 9px; color: #fff; letter-spacing: .05em;
   }
   /* 6 slots in 2×3 grid */
@@ -280,7 +286,7 @@
     position: absolute;
     width: 260px; height: 200px;
     top: 50%; left: 50%; transform: translate(-50%,-50%);
-    background: radial-gradient(ellipse, rgba(224,59,31,.18) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(245,196,0,.18) 0%, transparent 70%);
     pointer-events: none;
   }
   /* Cable bottom */
@@ -318,7 +324,7 @@
     position: absolute;
     top: -80px; right: -80px;
     width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(224,59,31,.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(245,196,0,.1) 0%, transparent 70%);
     pointer-events: none;
   }
   .section-eyebrow {
@@ -327,9 +333,11 @@
   }
   .section-title {
     font-family: var(--serif);
-    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
-    line-height: 1.15;
-    letter-spacing: -.02em;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.05;
+    letter-spacing: -.01em;
     margin-bottom: 48px;
   }
   .why-section .section-title { color: var(--cream); }
@@ -349,13 +357,13 @@
   .why-tile:hover { background: rgba(255,255,255,.09); transform: translateY(-3px); }
   .why-icon {
     width: 44px; height: 44px;
-    background: rgba(224,59,31,.15);
+    background: rgba(245,196,0,.15);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.4rem; margin-bottom: 16px;
   }
   .why-tile h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; color: var(--white); }
-  .why-tile p { font-size: .875rem; color: rgba(247,243,238,.6); line-height: 1.6; }
+  .why-tile p { font-size: .875rem; color: rgba(245,245,245,.6); line-height: 1.6; }
 
   /* ────────────────────────────────────────────
      VENUE CARDS
@@ -380,7 +388,7 @@
   }
   .venue-card:hover::before { opacity: 1; }
   .venue-emoji { font-size: 2rem; margin-bottom: 14px; }
-  .venue-card h3 { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 16px; }
+  .venue-card h3 { font-family: var(--serif); font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: .01em; margin-bottom: 16px; }
   .venue-card ul { display: flex; flex-direction: column; gap: 9px; }
   .venue-card li {
     font-size: .9rem; color: var(--muted);
@@ -406,12 +414,12 @@
   .step { text-align: center; position: relative; z-index: 1; }
   .step-num {
     width: 76px; height: 76px;
-    background: var(--red); color: var(--white);
+    background: var(--red); color: var(--ink);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-family: var(--serif); font-size: 1.9rem;
+    font-family: var(--serif); font-size: 2rem; font-weight: 800;
     margin: 0 auto 20px;
-    box-shadow: 0 6px 20px rgba(224,59,31,.35);
+    box-shadow: 0 6px 20px rgba(245,196,0,.4);
   }
   .step h3 { font-size: 1rem; font-weight: 600; margin-bottom: 10px; }
   .step p { font-size: .875rem; color: var(--muted); line-height: 1.65; max-width: 220px; margin: 0 auto; }
@@ -449,7 +457,7 @@
     font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
     padding: 4px 10px; border-radius: 4px; margin-bottom: 14px;
   }
-  .model-card h3 { font-family: var(--serif); font-size: 1.35rem; margin-bottom: 10px; }
+  .model-card h3 { font-family: var(--serif); font-size: 1.55rem; font-weight: 800; text-transform: uppercase; letter-spacing: .01em; margin-bottom: 10px; }
   .model-card p { font-size: .875rem; color: var(--muted); line-height: 1.65; }
   .model-for {
     margin-top: 16px; padding-top: 16px;
@@ -478,8 +486,8 @@
   .compare-table tbody tr { border-bottom: 1px solid var(--border); }
   .compare-table tbody tr:last-child { border-bottom: none; }
   .compare-table tbody tr:nth-child(even) { background: var(--warm); }
-  .compare-table th.highlight { background: var(--red); }
-  .compare-table td.highlight { background: rgba(224,59,31,.06); font-weight: 600; color: var(--ink); }
+  .compare-table th.highlight { background: var(--red); color: var(--ink); }
+  .compare-table td.highlight { background: rgba(245,196,0,.08); font-weight: 600; color: var(--ink); }
   .yes { color: #2a9d5c; font-size: 1.1rem; }
   .no { color: #cc3333; font-size: 1.1rem; }
   .partial { color: var(--muted); font-size: .85rem; }
@@ -507,13 +515,14 @@
   }
   .founder-quote {
     font-family: var(--serif);
-    font-size: 1.25rem; font-style: italic;
-    line-height: 1.6; color: var(--ink);
+    font-size: 1.55rem; font-weight: 700; font-style: italic;
+    text-transform: uppercase; letter-spacing: .01em;
+    line-height: 1.25; color: var(--ink);
     margin-bottom: 24px; position: relative; z-index: 1;
   }
   .founder-body { font-size: .95rem; color: var(--muted); line-height: 1.75; margin-bottom: 28px; }
-  .founder-sig { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); }
-  .founder-sig span { display: block; font-family: var(--sans); font-size: .8rem; color: var(--muted); margin-top: 2px; }
+  .founder-sig { font-family: var(--serif); font-size: 1.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: .02em; color: var(--ink); }
+  .founder-sig span { display: block; font-family: var(--sans); font-size: .8rem; font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--muted); margin-top: 2px; }
 
   /* ────────────────────────────────────────────
      CONTACT / FORM
@@ -527,19 +536,19 @@
     content: '';
     position: absolute; bottom: -60px; left: -60px;
     width: 350px; height: 350px;
-    background: radial-gradient(circle, rgba(224,59,31,.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(245,196,0,.1) 0%, transparent 70%);
     pointer-events: none;
   }
   .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-  .contact-info h2 { font-family: var(--serif); font-size: clamp(1.8rem,3vw,2.4rem); line-height: 1.2; margin-bottom: 20px; }
-  .contact-info p { font-size: .95rem; color: rgba(247,243,238,.65); line-height: 1.7; margin-bottom: 32px; }
+  .contact-info h2 { font-family: var(--serif); font-size: clamp(2rem,3.5vw,2.8rem); font-weight: 800; text-transform: uppercase; line-height: 1.05; margin-bottom: 20px; }
+  .contact-info p { font-size: .95rem; color: rgba(245,245,245,.65); line-height: 1.7; margin-bottom: 32px; }
   .contact-detail {
     display: flex; align-items: center; gap: 14px;
     margin-bottom: 14px; font-size: .9rem;
   }
   .contact-detail-icon {
     width: 38px; height: 38px; flex-shrink: 0;
-    background: rgba(224,59,31,.15); border-radius: 8px;
+    background: rgba(245,196,0,.15); border-radius: 8px;
     display: flex; align-items: center; justify-content: center; font-size: 1rem;
   }
   .contact-detail a { color: var(--cream); transition: color .2s; }
@@ -555,7 +564,7 @@
   .field label {
     display: block; font-size: .8rem; font-weight: 600;
     letter-spacing: .03em; text-transform: uppercase;
-    color: rgba(247,243,238,.55); margin-bottom: 7px;
+    color: rgba(245,245,245,.55); margin-bottom: 7px;
   }
   .field input, .field select, .field textarea {
     width: 100%; background: rgba(255,255,255,.06);
@@ -566,7 +575,7 @@
     transition: border-color .2s, background .2s;
     outline: none;
   }
-  .field input::placeholder, .field textarea::placeholder { color: rgba(247,243,238,.3); }
+  .field input::placeholder, .field textarea::placeholder { color: rgba(245,245,245,.3); }
   .field select option { background: var(--ink); }
   .field input:focus, .field select:focus, .field textarea:focus {
     border-color: var(--red); background: rgba(255,255,255,.1);
@@ -574,10 +583,10 @@
   .field textarea { resize: vertical; min-height: 80px; }
   .form-submit {
     width: 100%;
-    background: var(--red); color: var(--white);
+    background: var(--red); color: var(--ink);
     border: none; cursor: pointer;
     padding: 14px; border-radius: var(--r-sm);
-    font-size: 1rem; font-weight: 600; font-family: var(--sans);
+    font-size: 1rem; font-weight: 700; font-family: var(--sans);
     transition: background .2s, transform .15s;
     margin-top: 4px;
   }
@@ -587,21 +596,22 @@
      FOOTER
   ──────────────────────────────────────────── */
   footer {
-    background: #0e0c0b; color: rgba(247,243,238,.45);
-    padding: 40px 0; border-top: 1px solid rgba(255,255,255,.06);
+    background: #0a0a0a; color: rgba(245,245,245,.45);
+    padding: 40px 0; border-top: 1px solid rgba(255,255,255,.07);
   }
   .footer-inner {
     display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
     max-width: 1140px; margin: 0 auto; padding: 0 24px;
   }
-  .footer-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--cream); }
-  .footer-logo span { color: var(--red); }
+  .footer-logo { font-family: var(--serif); font-size: 1.3rem; font-weight: 800; text-transform: uppercase; letter-spacing: .01em; color: var(--white); }
+  .footer-logo .bolt { color: var(--red); }
+  .footer-logo span { color: var(--white); }
   .footer-tagline { font-size: .8rem; margin-top: 4px; }
   .footer-badges { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   .footer-badge {
     font-size: .75rem; padding: 4px 10px;
     border: 1px solid rgba(255,255,255,.12);
-    border-radius: 4px; color: rgba(247,243,238,.5);
+    border-radius: 4px; color: rgba(245,245,245,.5);
   }
   .footer-copy { font-size: .78rem; }
 
@@ -622,7 +632,7 @@
   }
   .float-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,.25); }
   .float-wa { background: #25d366; color: white; }
-  .float-demo { background: var(--red); color: white; }
+  .float-demo { background: var(--red); color: var(--ink); font-weight: 700; }
   .float-icon { font-size: 1.1rem; }
 
   /* ────────────────────────────────────────────
@@ -661,7 +671,7 @@
 <!-- ── NAV ── -->
 <nav id="top">
   <div class="nav-inner">
-    <div class="nav-logo">Watt<span>Mate</span></div>
+    <div class="nav-logo">Watt<i class="bolt">⚡</i>Mate</div>
     <ul class="nav-links" id="navLinks">
       <li><a href="#why">Why it works</a></li>
       <li><a href="#venues">Venues</a></li>
@@ -992,7 +1002,7 @@
   <div class="container">
     <div class="contact-inner">
       <div class="contact-info">
-        <div class="section-eyebrow reveal" style="color: rgba(224,59,31,.9);">Get in touch</div>
+        <div class="section-eyebrow reveal" style="color: rgba(245,196,0,.95);">Get in touch</div>
         <h2 class="reveal reveal-delay-1">Interested in<br>a pilot?</h2>
         <p class="reveal reveal-delay-2">Auckland demos are available now. Remote demos are available for venues anywhere in New Zealand — happy to walk you through it over a video call.</p>
 
@@ -1000,7 +1010,7 @@
           <div class="contact-detail-icon">📞</div>
           <div>
             <a href="tel:021000000">021 000 000</a>
-            <div style="font-size:.78rem; color: rgba(247,243,238,.4); margin-top:2px;">Call or text</div>
+            <div style="font-size:.78rem; color: rgba(245,245,245,.4); margin-top:2px;">Call or text</div>
           </div>
         </div>
 
@@ -1008,15 +1018,15 @@
           <div class="contact-detail-icon">💬</div>
           <div>
             <a href="https://wa.me/64210000000">WhatsApp: 021 000 000</a>
-            <div style="font-size:.78rem; color: rgba(247,243,238,.4); margin-top:2px;">Quick chat welcome</div>
+            <div style="font-size:.78rem; color: rgba(245,245,245,.4); margin-top:2px;">Quick chat welcome</div>
           </div>
         </div>
 
         <div class="contact-detail reveal reveal-delay-4">
           <div class="contact-detail-icon">✉️</div>
           <div>
-            <a href="mailto:hello@chargeupnz.co.nz">hello@chargeupnz.co.nz</a>
-            <div style="font-size:.78rem; color: rgba(247,243,238,.4); margin-top:2px;">We'll aim to reply same day</div>
+            <a href="/cdn-cgi/l/email-protection#09616c656566496a61687b6e6c7c796773276a66276773"><span class="__cf_email__" data-cfemail="167e737a7a7956757e776471736366786c38757938786c">[email&#160;protected]</span></a>
+            <div style="font-size:.78rem; color: rgba(245,245,245,.4); margin-top:2px;">We'll aim to reply same day</div>
           </div>
         </div>
 
@@ -1024,7 +1034,7 @@
           <div class="contact-detail-icon">📍</div>
           <div>
             <span>Auckland, New Zealand</span>
-            <div style="font-size:.78rem; color: rgba(247,243,238,.4); margin-top:2px;">Nationwide remote demos available</div>
+            <div style="font-size:.78rem; color: rgba(245,245,245,.4); margin-top:2px;">Nationwide remote demos available</div>
           </div>
         </div>
       </div>
@@ -1086,7 +1096,7 @@
 <footer>
   <div class="footer-inner">
     <div>
-      <div class="footer-logo">Watt<span>Mate</span></div>
+      <div class="footer-logo">Watt<span class="bolt">⚡</span>Mate</div>
       <div class="footer-tagline">Self-service power bank rental for NZ hospitality venues</div>
     </div>
     <div class="footer-badges">
@@ -1138,13 +1148,25 @@
     document.getElementById('formSuccess').style.display = 'block';
   }
 
-  // Trigger reveals already in viewport on load
+  // Trigger reveals already in viewport on load — and fall back to showing all
+  // if IntersectionObserver doesn't fire (sandboxed renderers, etc.)
+  function revealAll() {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  }
+
+  // Show anything already in view immediately
   setTimeout(() => {
     reveals.forEach(el => {
       const rect = el.getBoundingClientRect();
       if (rect.top < window.innerHeight) el.classList.add('visible');
     });
   }, 100);
+
+  // Safety net: if nothing has been revealed after 800ms, reveal everything
+  setTimeout(() => {
+    const unrevealed = document.querySelectorAll('.reveal:not(.visible)');
+    if (unrevealed.length > 2) revealAll();
+  }, 800);
 </script>
 </body>
 </html>
