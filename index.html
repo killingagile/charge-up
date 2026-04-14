@@ -1,474 +1,1150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-NZ">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ChargeUp NZ — Power Bank Rental for Venues</title>
+<title>ChargeUp NZ — Power Bank Rental for Hospitality Venues</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #0f0f0f;
-    --ink-mid: #3a3a3a;
-    --ink-light: #6b6b6b;
-    --surface: #f7f5f2;
-    --white: #ffffff;
-    --accent: #e8440a;
-    --accent-warm: #ff6b35;
-    --accent-light: #fff1ec;
-    --border: rgba(15,15,15,0.1);
-    --radius: 16px;
-    --radius-sm: 10px;
-  }
-
+  /* ── Reset & tokens ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-
+  :root {
+    --cream:   #f7f3ee;
+    --ink:     #1a1714;
+    --ink-mid: #2d2926;
+    --red:     #e03b1f;
+    --red-dk:  #b82e15;
+    --red-lt:  #f5ded9;
+    --warm:    #f0ebe4;
+    --muted:   #7a6f68;
+    --border:  #e0d8d0;
+    --white:   #ffffff;
+    --serif:   'DM Serif Display', Georgia, serif;
+    --sans:    'DM Sans', system-ui, sans-serif;
+    --r-sm:    8px;
+    --r-md:    14px;
+    --r-lg:    20px;
+    --shadow:  0 4px 24px rgba(26,23,20,.09);
+    --shadow-lg: 0 12px 48px rgba(26,23,20,.14);
+  }
+  html { scroll-behavior: smooth; font-size: 16px; }
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--surface);
+    font-family: var(--sans);
+    background: var(--cream);
     color: var(--ink);
-    line-height: 1.6;
+    line-height: 1.65;
     overflow-x: hidden;
   }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
 
+  /* ── Utility ── */
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+  /* ── Scroll reveal ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+  .reveal-delay-4 { transition-delay: .4s; }
+  .reveal-delay-5 { transition-delay: .5s; }
+
+  /* ────────────────────────────────────────────
+     NAV
+  ──────────────────────────────────────────── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5vw; height: 64px;
-    background: rgba(247,245,242,0.92);
-    backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(247,243,238,.95);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
+    padding: 0 0;
   }
-  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
-  .nav-logo span { color: var(--accent); }
-  .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
-  .nav-links a { text-decoration: none; color: var(--ink-mid); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--accent); }
-  .nav-cta { background: var(--accent); color: var(--white) !important; padding: 0.55rem 1.3rem; border-radius: 50px; font-weight: 600 !important; transition: background 0.2s, transform 0.15s !important; }
-  .nav-cta:hover { background: var(--ink) !important; transform: translateY(-1px); }
+  .nav-inner {
+    display: flex; align-items: center; gap: 32px;
+    max-width: 1140px; margin: 0 auto; padding: 14px 24px;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    color: var(--ink);
+    flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--red); }
+  .nav-links {
+    display: flex; gap: 28px; margin-left: auto;
+    font-size: .9rem; font-weight: 500; letter-spacing: .01em;
+  }
+  .nav-links a { color: var(--muted); transition: color .2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .btn-demo-nav {
+    margin-left: 8px;
+    background: var(--red); color: var(--white);
+    padding: 9px 20px; border-radius: var(--r-sm);
+    font-size: .875rem; font-weight: 600;
+    transition: background .2s, transform .15s;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .btn-demo-nav:hover { background: var(--red-dk); transform: translateY(-1px); }
+  .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+  .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); margin: 5px 0; transition: .3s; }
 
+  /* ────────────────────────────────────────────
+     HERO
+  ──────────────────────────────────────────── */
   .hero {
-    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
-    align-items: center; gap: 4rem; padding: 100px 5vw 60px;
-    max-width: 1300px; margin: 0 auto;
+    padding: 80px 0 96px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
   }
-  .hero-text { max-width: 560px; }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 80% 30%, rgba(224,59,31,.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: center;
+    max-width: 1140px; margin: 0 auto; padding: 0 24px;
+  }
   .hero-badge {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--accent-light); color: var(--accent);
-    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em;
-    text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 50px;
-    margin-bottom: 1.5rem; animation: fadeUp 0.6s ease both;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--red-lt); color: var(--red-dk);
+    padding: 6px 14px; border-radius: 100px;
+    font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    margin-bottom: 24px;
   }
-  .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 1.5s infinite; }
-  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
+  .hero-badge::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--red); animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .5; transform: scale(1.3); }
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .hero h1 em { font-style: italic; color: var(--red); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 520px; margin-bottom: 36px; line-height: 1.7;
+  }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+  .btn-primary {
+    background: var(--red); color: var(--white);
+    padding: 14px 28px; border-radius: var(--r-sm);
+    font-weight: 600; font-size: .975rem;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    box-shadow: 0 4px 16px rgba(224,59,31,.3);
+  }
+  .btn-primary:hover { background: var(--red-dk); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(224,59,31,.38); }
+  .btn-secondary {
+    background: transparent; color: var(--ink);
+    padding: 14px 28px; border-radius: var(--r-sm);
+    font-weight: 600; font-size: .975rem;
+    border: 1.5px solid var(--border);
+    transition: border-color .2s, background .2s;
+  }
+  .btn-secondary:hover { border-color: var(--ink); background: var(--warm); }
+  .hero-stats {
+    display: flex; gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--white);
+    box-shadow: var(--shadow);
+  }
+  .stat {
+    flex: 1; padding: 18px 20px;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    display: block;
+    font-family: var(--serif); font-size: 1.8rem;
+    color: var(--red); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: .78rem; color: var(--muted); font-weight: 500; line-height: 1.3; }
 
-  h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.6rem, 5vw, 4rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 1.2rem; animation: fadeUp 0.6s 0.1s ease both; }
-  h1 em { font-style: normal; color: var(--accent); position: relative; display: inline-block; }
-  h1 em::after { content: ''; position: absolute; bottom: 4px; left: 0; right: 0; height: 3px; background: var(--accent); opacity: 0.3; border-radius: 2px; }
+  /* ── CSS device illustration ── */
+  .device-wrap {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+  }
+  .device {
+    position: relative;
+    width: 280px; height: 300px;
+  }
+  /* Station body */
+  .station-body {
+    position: absolute;
+    width: 240px; height: 270px;
+    left: 20px; top: 15px;
+    background: linear-gradient(145deg, #2d2926 0%, #1a1714 60%, #222 100%);
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
+  }
+  /* Station top label strip */
+  .station-label {
+    position: absolute;
+    top: 18px; left: 50%; transform: translateX(-50%);
+    width: 140px; height: 22px;
+    background: var(--red);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .station-label::after {
+    content: 'ChargeUp NZ';
+    font-family: var(--serif); font-size: 9px; color: #fff; letter-spacing: .05em;
+  }
+  /* 6 slots in 2×3 grid */
+  .slots {
+    position: absolute;
+    top: 52px; left: 50%; transform: translateX(-50%);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; width: 176px;
+  }
+  .slot {
+    width: 78px; height: 52px;
+    background: #111;
+    border-radius: 8px;
+    border: 1.5px solid #3a3530;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,.5);
+  }
+  /* Power bank inside each slot */
+  .slot::before {
+    content: '';
+    position: absolute;
+    left: 6px; top: 7px;
+    width: 52px; height: 36px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #3a6e8a 0%, #2d5a72 100%);
+    box-shadow: 0 2px 6px rgba(0,0,0,.3);
+  }
+  /* LED indicator on power bank */
+  .slot::after {
+    content: '';
+    position: absolute;
+    right: 8px; top: 50%; transform: translateY(-50%);
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #2ecc71;
+    box-shadow: 0 0 6px #2ecc71;
+  }
+  /* Empty slot (last one) */
+  .slot.empty::before { background: #222; }
+  .slot.empty::after { background: #555; box-shadow: none; }
+  /* Tap to rent strip */
+  .station-tap {
+    position: absolute;
+    bottom: 22px; left: 50%; transform: translateX(-50%);
+    width: 160px; height: 38px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .tap-icon {
+    width: 18px; height: 18px;
+    border: 2px solid var(--red); border-radius: 50%;
+    position: relative; flex-shrink: 0;
+  }
+  .tap-icon::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+  .station-tap span {
+    font-size: 8px; color: rgba(255,255,255,.6);
+    font-family: var(--sans); letter-spacing: .05em; text-transform: uppercase; font-weight: 600;
+  }
+  /* Glow behind device */
+  .device-glow {
+    position: absolute;
+    width: 260px; height: 200px;
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    background: radial-gradient(ellipse, rgba(224,59,31,.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  /* Cable bottom */
+  .station-cable {
+    position: absolute;
+    bottom: -14px; left: 50%; transform: translateX(-50%);
+    width: 6px; height: 18px;
+    background: #444;
+    border-radius: 3px;
+  }
+  /* Dimension annotations */
+  .dim-label {
+    position: absolute;
+    font-size: 9px; color: var(--muted);
+    font-family: var(--sans); letter-spacing: .03em;
+    white-space: nowrap;
+  }
+  .dim-label::before {
+    content: ''; position: absolute;
+    background: var(--muted);
+  }
 
-  .hero-sub { font-size: 1.05rem; color: var(--ink-mid); max-width: 440px; margin-bottom: 2rem; line-height: 1.7; animation: fadeUp 0.6s 0.2s ease both; font-weight: 300; }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.6s 0.3s ease both; }
+  /* ────────────────────────────────────────────
+     WHY SECTION (dark)
+  ──────────────────────────────────────────── */
+  .why-section {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 96px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .why-section::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(224,59,31,.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .section-eyebrow {
+    font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    margin-bottom: 48px;
+  }
+  .why-section .section-title { color: var(--cream); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .why-tile {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: var(--r-md);
+    padding: 28px 24px;
+    position: relative;
+    transition: background .25s, border-color .25s, transform .25s;
+  }
+  .why-tile:hover { background: rgba(255,255,255,.09); transform: translateY(-3px); }
+  .why-icon {
+    width: 44px; height: 44px;
+    background: rgba(224,59,31,.15);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 16px;
+  }
+  .why-tile h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; color: var(--white); }
+  .why-tile p { font-size: .875rem; color: rgba(247,243,238,.6); line-height: 1.6; }
 
-  .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: var(--white); padding: 0.85rem 2rem; border-radius: 50px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(232,68,10,0.3); }
-  .btn-primary:hover { background: var(--ink); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(15,15,15,0.2); }
-  .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: var(--ink); padding: 0.85rem 2rem; border-radius: 50px; font-weight: 600; font-size: 0.95rem; text-decoration: none; border: 1.5px solid var(--ink); transition: background 0.2s, color 0.2s, transform 0.15s; }
-  .btn-secondary:hover { background: var(--ink); color: var(--white); transform: translateY(-2px); }
+  /* ────────────────────────────────────────────
+     VENUE CARDS
+  ──────────────────────────────────────────── */
+  .venues-section { padding: 96px 0; background: var(--cream); }
+  .venues-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; }
+  .venue-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow .25s, transform .25s;
+  }
+  .venue-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+  .venue-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--red);
+    opacity: 0; transition: opacity .25s;
+  }
+  .venue-card:hover::before { opacity: 1; }
+  .venue-emoji { font-size: 2rem; margin-bottom: 14px; }
+  .venue-card h3 { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 16px; }
+  .venue-card ul { display: flex; flex-direction: column; gap: 9px; }
+  .venue-card li {
+    font-size: .9rem; color: var(--muted);
+    padding-left: 20px; position: relative; line-height: 1.5;
+  }
+  .venue-card li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--red); font-size: .8rem;
+  }
 
-  .hero-stats { display: flex; gap: 2.5rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); animation: fadeUp 0.6s 0.4s ease both; }
-  .stat-item strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--ink); line-height: 1; }
-  .stat-item span { font-size: 0.78rem; color: var(--ink-light); font-weight: 400; }
+  /* ────────────────────────────────────────────
+     HOW IT WORKS
+  ──────────────────────────────────────────── */
+  .how-section { padding: 96px 0; background: var(--warm); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 56px; position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute; top: 38px; left: 16%; right: 16%; height: 2px;
+    background: repeating-linear-gradient(90deg, var(--red) 0, var(--red) 8px, transparent 8px, transparent 16px);
+    z-index: 0;
+  }
+  .step { text-align: center; position: relative; z-index: 1; }
+  .step-num {
+    width: 76px; height: 76px;
+    background: var(--red); color: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 1.9rem;
+    margin: 0 auto 20px;
+    box-shadow: 0 6px 20px rgba(224,59,31,.35);
+  }
+  .step h3 { font-size: 1rem; font-weight: 600; margin-bottom: 10px; }
+  .step p { font-size: .875rem; color: var(--muted); line-height: 1.65; max-width: 220px; margin: 0 auto; }
+  .reassurance-strip {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 56px; justify-content: center;
+  }
+  .r-chip {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: .82rem; font-weight: 500; color: var(--ink-mid);
+    display: flex; align-items: center; gap: 7px;
+  }
+  .r-chip::before { content: '✓'; color: var(--red); font-weight: 700; }
 
-  .hero-visual { position: relative; animation: fadeUp 0.7s 0.15s ease both; }
-  .hero-device-wrap { background: var(--white); border-radius: 24px; padding: 2.5rem; box-shadow: 0 24px 80px rgba(15,15,15,0.12), 0 4px 20px rgba(15,15,15,0.06); position: relative; overflow: hidden; }
-  .hero-device-wrap::before { content: ''; position: absolute; top: -50%; right: -30%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(232,68,10,0.06) 0%, transparent 70%); pointer-events: none; }
+  /* ────────────────────────────────────────────
+     COMMERCIAL MODEL
+  ──────────────────────────────────────────── */
+  .commercial-section { padding: 96px 0; background: var(--cream); }
+  .model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .model-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 36px 28px;
+    transition: box-shadow .25s, transform .25s, border-color .25s;
+    position: relative;
+  }
+  .model-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: var(--red); }
+  .model-badge {
+    display: inline-block;
+    background: var(--red-lt); color: var(--red-dk);
+    font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 4px; margin-bottom: 14px;
+  }
+  .model-card h3 { font-family: var(--serif); font-size: 1.35rem; margin-bottom: 10px; }
+  .model-card p { font-size: .875rem; color: var(--muted); line-height: 1.65; }
+  .model-for {
+    margin-top: 16px; padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: .8rem; color: var(--muted);
+  }
+  .model-for strong { color: var(--ink); }
 
-  .device-label { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
-  .device-label .tag { background: var(--accent-light); color: var(--accent); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.3rem 0.75rem; border-radius: 50px; }
-  .device-label .model { font-size: 0.8rem; color: var(--ink-light); }
+  /* ────────────────────────────────────────────
+     COMPARISON TABLE
+  ──────────────────────────────────────────── */
+  .compare-section { padding: 96px 0; background: var(--warm); }
+  .table-wrap {
+    margin-top: 48px;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .compare-table { width: 100%; border-collapse: collapse; background: var(--white); }
+  .compare-table th, .compare-table td { padding: 17px 22px; text-align: center; font-size: .9rem; }
+  .compare-table thead tr { background: var(--ink); }
+  .compare-table th { color: var(--white); font-weight: 600; }
+  .compare-table th:first-child { text-align: left; }
+  .compare-table td:first-child { text-align: left; color: var(--ink-mid); font-weight: 500; }
+  .compare-table tbody tr { border-bottom: 1px solid var(--border); }
+  .compare-table tbody tr:last-child { border-bottom: none; }
+  .compare-table tbody tr:nth-child(even) { background: var(--warm); }
+  .compare-table th.highlight { background: var(--red); }
+  .compare-table td.highlight { background: rgba(224,59,31,.06); font-weight: 600; color: var(--ink); }
+  .yes { color: #2a9d5c; font-size: 1.1rem; }
+  .no { color: #cc3333; font-size: 1.1rem; }
+  .partial { color: var(--muted); font-size: .85rem; }
 
-  .css-device { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; background: #1a1a1a; border-radius: 16px; padding: 20px; margin: 0 auto 1.5rem; max-width: 260px; box-shadow: inset 0 2px 8px rgba(0,0,0,0.4); }
-  .power-slot { background: #2a2a2a; border-radius: 10px; height: 72px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; position: relative; overflow: hidden; transition: background 0.3s; }
-  .power-slot.occupied { background: #1e3a2a; }
-  .power-slot.occupied::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: #22c55e; }
-  .slot-icon { width: 20px; height: 30px; background: #3a3a3a; border-radius: 4px; position: relative; }
-  .slot-icon::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 14px; background: linear-gradient(180deg, #555 0%, #444 100%); border-radius: 2px; }
-  .power-slot.occupied .slot-icon { background: #1a4030; }
-  .power-slot.occupied .slot-icon::before { background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%); box-shadow: 0 0 8px rgba(34,197,94,0.5); }
-  .slot-dot { width: 5px; height: 5px; border-radius: 50%; background: #444; }
-  .power-slot.occupied .slot-dot { background: #22c55e; box-shadow: 0 0 4px #22c55e; }
+  /* ────────────────────────────────────────────
+     FOUNDER NOTE
+  ──────────────────────────────────────────── */
+  .founder-section { padding: 96px 0; background: var(--cream); }
+  .founder-card {
+    max-width: 720px; margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 52px 56px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .founder-card::before {
+    content: '\201C';
+    position: absolute; top: -10px; left: 28px;
+    font-family: var(--serif); font-size: 9rem;
+    color: var(--red-lt);
+    line-height: 1; pointer-events: none;
+  }
+  .founder-quote {
+    font-family: var(--serif);
+    font-size: 1.25rem; font-style: italic;
+    line-height: 1.6; color: var(--ink);
+    margin-bottom: 24px; position: relative; z-index: 1;
+  }
+  .founder-body { font-size: .95rem; color: var(--muted); line-height: 1.75; margin-bottom: 28px; }
+  .founder-sig { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); }
+  .founder-sig span { display: block; font-family: var(--sans); font-size: .8rem; color: var(--muted); margin-top: 2px; }
 
-  .device-screen { background: #111; border-radius: 10px; height: 44px; display: flex; align-items: center; justify-content: center; margin-top: 8px; position: relative; overflow: hidden; }
-  .device-screen::after { content: 'TAP TO RENT  •  SCAN QR'; font-size: 8px; letter-spacing: 0.12em; color: rgba(255,255,255,0.5); font-weight: 600; }
-  .device-screen::before { content: ''; position: absolute; left: -100%; top: 0; bottom: 0; width: 60%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent); animation: shimmer 2.5s infinite; }
-  @keyframes shimmer { to { left: 200%; } }
+  /* ────────────────────────────────────────────
+     CONTACT / FORM
+  ──────────────────────────────────────────── */
+  .contact-section {
+    padding: 96px 0;
+    background: var(--ink); color: var(--cream);
+    position: relative; overflow: hidden;
+  }
+  .contact-section::after {
+    content: '';
+    position: absolute; bottom: -60px; left: -60px;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(224,59,31,.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .contact-info h2 { font-family: var(--serif); font-size: clamp(1.8rem,3vw,2.4rem); line-height: 1.2; margin-bottom: 20px; }
+  .contact-info p { font-size: .95rem; color: rgba(247,243,238,.65); line-height: 1.7; margin-bottom: 32px; }
+  .contact-detail {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 14px; font-size: .9rem;
+  }
+  .contact-detail-icon {
+    width: 38px; height: 38px; flex-shrink: 0;
+    background: rgba(224,59,31,.15); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; font-size: 1rem;
+  }
+  .contact-detail a { color: var(--cream); transition: color .2s; }
+  .contact-detail a:hover { color: var(--red); }
+  .form-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: var(--r-lg);
+    padding: 40px 36px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block; font-size: .8rem; font-weight: 600;
+    letter-spacing: .03em; text-transform: uppercase;
+    color: rgba(247,243,238,.55); margin-bottom: 7px;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%; background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--r-sm); color: var(--cream);
+    padding: 11px 14px; font-size: .9rem;
+    font-family: var(--sans);
+    transition: border-color .2s, background .2s;
+    outline: none;
+  }
+  .field input::placeholder, .field textarea::placeholder { color: rgba(247,243,238,.3); }
+  .field select option { background: var(--ink); }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    border-color: var(--red); background: rgba(255,255,255,.1);
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .form-submit {
+    width: 100%;
+    background: var(--red); color: var(--white);
+    border: none; cursor: pointer;
+    padding: 14px; border-radius: var(--r-sm);
+    font-size: 1rem; font-weight: 600; font-family: var(--sans);
+    transition: background .2s, transform .15s;
+    margin-top: 4px;
+  }
+  .form-submit:hover { background: var(--red-dk); transform: translateY(-1px); }
 
-  .device-footer { display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; color: var(--ink-light); margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
-  .device-footer strong { color: var(--ink); }
+  /* ────────────────────────────────────────────
+     FOOTER
+  ──────────────────────────────────────────── */
+  footer {
+    background: #0e0c0b; color: rgba(247,243,238,.45);
+    padding: 40px 0; border-top: 1px solid rgba(255,255,255,.06);
+  }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    max-width: 1140px; margin: 0 auto; padding: 0 24px;
+  }
+  .footer-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--cream); }
+  .footer-logo span { color: var(--red); }
+  .footer-tagline { font-size: .8rem; margin-top: 4px; }
+  .footer-badges { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .footer-badge {
+    font-size: .75rem; padding: 4px 10px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 4px; color: rgba(247,243,238,.5);
+  }
+  .footer-copy { font-size: .78rem; }
 
-  .float-badge { position: absolute; background: var(--white); border-radius: 50px; padding: 0.45rem 1rem; font-size: 0.75rem; font-weight: 600; box-shadow: 0 8px 24px rgba(15,15,15,0.12); white-space: nowrap; animation: floatBadge 3s ease-in-out infinite; }
-  .float-badge-1 { top: -12px; right: 20px; animation-delay: 0s; }
-  .float-badge-1::before { content: '✅ '; }
-  .float-badge-2 { bottom: 20px; left: -20px; animation-delay: 1s; }
-  .float-badge-2::before { content: '⚡ '; }
-  @keyframes floatBadge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  /* ────────────────────────────────────────────
+     FLOATING BUTTONS
+  ──────────────────────────────────────────── */
+  .floating-btns {
+    position: fixed; bottom: 28px; right: 24px;
+    display: flex; flex-direction: column; gap: 10px; z-index: 500;
+  }
+  .float-btn {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 18px; border-radius: 100px;
+    font-size: .875rem; font-weight: 600;
+    box-shadow: 0 4px 20px rgba(0,0,0,.2);
+    transition: transform .2s, box-shadow .2s;
+    white-space: nowrap;
+  }
+  .float-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,.25); }
+  .float-wa { background: #25d366; color: white; }
+  .float-demo { background: var(--red); color: white; }
+  .float-icon { font-size: 1.1rem; }
 
-  section { padding: 80px 5vw; }
-  .container { max-width: 1200px; margin: 0 auto; }
-  .section-label { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
-  h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; line-height: 1.12; letter-spacing: -0.025em; margin-bottom: 0.5rem; }
-  .section-sub { font-size: 1rem; color: var(--ink-mid); font-weight: 300; max-width: 520px; line-height: 1.7; margin-bottom: 3rem; }
-
-  .why-section { background: var(--ink); color: var(--white); }
-  .why-section h2 { color: var(--white); }
-  .why-section .section-label { color: var(--accent-warm); }
-  .why-section .section-sub { color: rgba(255,255,255,0.6); }
-  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2px; background: rgba(255,255,255,0.06); border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
-  .why-item { background: var(--ink); padding: 2rem 1.75rem; transition: background 0.2s; }
-  .why-item:hover { background: #1a1a1a; }
-  .why-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
-  .why-item h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--white); }
-  .why-item p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; font-weight: 300; }
-
-  .venues-section { background: var(--white); }
-  .venue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
-  .venue-card { background: var(--surface); border-radius: var(--radius); padding: 2rem 1.75rem; border: 1.5px solid transparent; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; cursor: default; }
-  .venue-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(232,68,10,0.08); }
-  .venue-emoji { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
-  .venue-card h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
-  .venue-card ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; }
-  .venue-card li { font-size: 0.85rem; color: var(--ink-mid); padding-left: 1.2rem; position: relative; }
-  .venue-card li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
-
-  .how-section { background: var(--surface); }
-  .steps-row { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: start; gap: 0; margin-bottom: 2.5rem; }
-  .step-arrow { font-size: 1.5rem; color: var(--accent); padding-top: 1.5rem; opacity: 0.5; align-self: center; }
-  .step { background: var(--white); border-radius: var(--radius); padding: 2rem 1.5rem; text-align: center; }
-  .step-num { width: 42px; height: 42px; background: var(--accent); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; margin: 0 auto 1rem; }
-  .step h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .step p { font-size: 0.85rem; color: var(--ink-mid); font-weight: 300; }
-  .how-reassurance { display: flex; gap: 2rem; flex-wrap: wrap; padding: 1.5rem 2rem; background: var(--white); border-radius: var(--radius-sm); border-left: 3px solid var(--accent); }
-  .reassure-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; font-weight: 500; color: var(--ink-mid); }
-
-  .commercial-section { background: var(--white); }
-  .commercial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
-  .commercial-card { border: 1.5px solid var(--border); border-radius: var(--radius); padding: 2rem 1.75rem; transition: border-color 0.2s, box-shadow 0.2s; }
-  .commercial-card:hover { border-color: var(--accent); box-shadow: 0 8px 32px rgba(232,68,10,0.06); }
-  .commercial-card.featured { border-color: var(--accent); background: var(--accent-light); }
-  .cc-tag { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent); margin-bottom: 0.5rem; }
-  .commercial-card h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem; }
-  .commercial-card p { font-size: 0.85rem; color: var(--ink-mid); font-weight: 300; line-height: 1.65; }
-  .commercial-reassure { display: flex; gap: 1.5rem; flex-wrap: wrap; padding: 1.25rem 1.75rem; background: var(--surface); border-radius: var(--radius-sm); }
-  .cr-item { font-size: 0.82rem; color: var(--ink-mid); display: flex; align-items: center; gap: 0.4rem; }
-  .cr-item::before { content: '✓'; color: var(--accent); font-weight: 700; }
-
-  .vs-section { background: var(--surface); }
-  .compare-table { background: var(--white); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
-  .compare-row { display: grid; grid-template-columns: 2fr 1fr 1fr; border-bottom: 1px solid var(--border); }
-  .compare-row:last-child { border-bottom: none; }
-  .compare-row.header { background: var(--ink); color: var(--white); }
-  .compare-cell { padding: 1rem 1.5rem; font-size: 0.88rem; display: flex; align-items: center; border-right: 1px solid var(--border); }
-  .compare-cell:last-child { border-right: none; }
-  .compare-row.header .compare-cell { font-family: 'Syne', sans-serif; font-weight: 700; border-right-color: rgba(255,255,255,0.1); font-size: 0.82rem; letter-spacing: 0.03em; }
-  .compare-row.header .compare-cell:last-child { background: rgba(232,68,10,0.3); color: #ffb09a; }
-  .check { color: #22c55e; font-weight: 700; margin-right: 0.3rem; }
-  .cross { color: #ef4444; font-weight: 700; margin-right: 0.3rem; }
-
-  .contact-section { background: var(--white); position: relative; overflow: hidden; }
-  .contact-section::before { content: ''; position: absolute; top: 0; right: 0; width: 400px; height: 400px; background: radial-gradient(circle at 80% 20%, rgba(232,68,10,0.06), transparent 60%); pointer-events: none; }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
-  .contact-info h2 { margin-bottom: 1rem; }
-  .contact-info p { font-size: 0.95rem; color: var(--ink-mid); font-weight: 300; line-height: 1.7; margin-bottom: 2rem; }
-  .contact-details { display: flex; flex-direction: column; gap: 1rem; }
-  .contact-detail { display: flex; align-items: center; gap: 0.75rem; font-size: 0.88rem; color: var(--ink-mid); }
-  .contact-detail a { color: var(--accent); text-decoration: none; font-weight: 500; }
-  .contact-icon { width: 36px; height: 36px; background: var(--accent-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
-
-  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-  .form-group label { font-size: 0.78rem; font-weight: 600; color: var(--ink); letter-spacing: 0.02em; }
-  .form-group input, .form-group select, .form-group textarea { padding: 0.8rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--ink); background: var(--surface); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(232,68,10,0.08); background: var(--white); }
-  .form-group textarea { resize: vertical; min-height: 90px; }
-  .form-submit { background: var(--accent); color: var(--white); border: none; padding: 0.9rem 2.5rem; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; align-self: flex-start; box-shadow: 0 4px 16px rgba(232,68,10,0.25); }
-  .form-submit:hover { background: var(--ink); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,15,15,0.2); }
-  .form-note { font-size: 0.75rem; color: var(--ink-light); margin-top: 0.25rem; }
-
-  footer { background: var(--ink); color: rgba(255,255,255,0.5); padding: 2.5rem 5vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-  footer .logo-f { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--white); }
-  footer .logo-f span { color: var(--accent); }
-  footer p { font-size: 0.78rem; }
-
-  .sticky-cta { position: fixed; bottom: 24px; right: 24px; z-index: 99; display: flex; gap: 0.6rem; }
-  .sticky-btn { background: var(--accent); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; font-size: 0.85rem; text-decoration: none; box-shadow: 0 8px 24px rgba(232,68,10,0.35); transition: background 0.2s, transform 0.15s; display: flex; align-items: center; gap: 0.4rem; }
-  .sticky-btn:hover { background: var(--ink); transform: translateY(-2px); }
-  .sticky-btn.wa { background: #25d366; box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
-  .sticky-btn.wa:hover { background: #1da851; }
-
+  /* ────────────────────────────────────────────
+     MOBILE
+  ──────────────────────────────────────────── */
   @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; padding-top: 100px; text-align: center; }
-    .hero-text { max-width: 100%; }
-    .hero-sub { max-width: 100%; }
-    .hero-actions { justify-content: center; }
-    .hero-stats { justify-content: center; }
-    .hero-visual { max-width: 400px; margin: 0 auto; }
-    .steps-row { grid-template-columns: 1fr; }
-    .step-arrow { display: none; }
-    .commercial-grid { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .device-wrap { margin-top: 40px; }
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .venues-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .steps::before { display: none; }
+    .model-grid { grid-template-columns: 1fr; }
+    .contact-inner { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
-    .compare-row { grid-template-columns: 1.5fr 1fr 1fr; }
     .nav-links { display: none; }
+    .nav-hamburger { display: block; margin-left: auto; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); border-top: 1px solid var(--border); padding: 16px 24px; gap: 16px; z-index: 100; }
+    .btn-demo-nav { display: none; }
+    .founder-card { padding: 36px 28px; }
+    .compare-table th, .compare-table td { padding: 12px 10px; font-size: .8rem; }
   }
   @media (max-width: 600px) {
-    h1 { font-size: 2.2rem; }
-    .css-device { max-width: 220px; }
-    .sticky-cta { bottom: 16px; right: 16px; }
-    .sticky-btn span { display: none; }
-    .why-grid { grid-template-columns: 1fr 1fr; }
-    .hero-stats { gap: 1.5rem; }
-    .compare-row { grid-template-columns: 1.2fr 0.9fr 0.9fr; }
-    .compare-cell { padding: 0.75rem; font-size: 0.8rem; }
+    .why-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: column; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat:last-child { border-bottom: none; }
+    .float-btn span { display: none; }
+    .float-btn { padding: 13px; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
   }
-
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="#" class="nav-logo">Charge<span>Up</span> NZ</a>
-  <ul class="nav-links">
-    <li><a href="#why">Why it works</a></li>
-    <li><a href="#venues">Venues</a></li>
-    <li><a href="#commercial">Pricing</a></li>
-    <li><a href="#contact" class="nav-cta">Book a demo</a></li>
-  </ul>
+<!-- ── NAV ── -->
+<nav id="top">
+  <div class="nav-inner">
+    <div class="nav-logo">Charge<span>Up</span> NZ</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#why">Why it works</a></li>
+      <li><a href="#venues">Venues</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn-demo-nav">Book a demo</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
-<section style="padding: 0;">
-  <div class="hero">
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-badge">Now available in New Zealand</div>
-      <h1>Keep your customers <em>charged</em> — and staying longer</h1>
-      <p class="hero-sub">A compact, self-service phone charging station for pubs, cafés and high-footfall venues. No cables, no hassle, no staff time required.</p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn-primary">Book a demo →</a>
-        <a href="#commercial" class="btn-secondary">See pricing</a>
+      <div class="hero-badge reveal">Now launching in New Zealand</div>
+      <h1 class="reveal reveal-delay-1">Keep your customers <em>charged</em> and engaged</h1>
+      <p class="hero-sub reveal reveal-delay-2">Self-service power bank rental for hospitality venues. No cables to manage, no staff time needed — customers tap to rent and return when done.</p>
+      <div class="hero-btns reveal reveal-delay-3">
+        <a href="#contact" class="btn-primary">Book a demo</a>
+        <a href="#pricing" class="btn-secondary">See pricing</a>
       </div>
-      <div class="hero-stats">
-        <div class="stat-item"><strong>6</strong><span>power banks per unit</span></div>
-        <div class="stat-item"><strong>8000</strong><span>mAh capacity each</span></div>
-        <div class="stat-item"><strong>Zero</strong><span>staff time needed</span></div>
+      <div class="hero-stats reveal reveal-delay-4">
+        <div class="stat">
+          <span class="stat-num">6</span>
+          <span class="stat-label">Power banks<br>per unit</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">8k</span>
+          <span class="stat-label">mAh per<br>power bank</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">0</span>
+          <span class="stat-label">Staff time<br>needed</span>
+        </div>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="float-badge float-badge-1">No installation needed</div>
-      <div class="hero-device-wrap">
-        <div class="device-label">
-          <div class="tag">Relink CS-S06 Ultra</div>
-          <div class="model">TapGo 6-slot</div>
+    <div class="device-wrap reveal reveal-delay-2">
+      <div class="device">
+        <div class="device-glow"></div>
+        <div class="station-body">
+          <div class="station-label"></div>
+          <div class="slots">
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot empty"></div>
+          </div>
+          <div class="station-tap">
+            <div class="tap-icon"></div>
+            <span>Tap to rent</span>
+          </div>
         </div>
-        <div class="css-device">
-          <div class="power-slot occupied"><div class="slot-icon"></div><div class="slot-dot"></div></div>
-          <div class="power-slot occupied"><div class="slot-icon"></div><div class="slot-dot"></div></div>
-          <div class="power-slot"><div class="slot-icon"></div><div class="slot-dot"></div></div>
-          <div class="power-slot occupied"><div class="slot-icon"></div><div class="slot-dot"></div></div>
-          <div class="power-slot"><div class="slot-icon"></div><div class="slot-dot"></div></div>
-          <div class="power-slot occupied"><div class="slot-icon"></div><div class="slot-dot"></div></div>
-          <div class="device-screen" style="grid-column: 1/-1;"></div>
-        </div>
-        <div class="device-footer">
-          <span>Tap, scan, or contactless pay</span>
-          <strong>Apple Pay ✦ Eftpos</strong>
-        </div>
+        <div class="station-cable"></div>
       </div>
-      <div class="float-badge float-badge-2">Works on standard power</div>
+      <div style="text-align:center; margin-top: 18px; font-size:.78rem; color: var(--muted);">
+        Approx. 260 × 243 × 240 mm &nbsp;·&nbsp; Standard NZ socket
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ── WHY ── -->
 <section class="why-section" id="why">
   <div class="container">
-    <div class="section-label reveal">Why venues install this</div>
-    <h2 class="reveal">Your customers' phones<br>are dying. That's your problem.</h2>
-    <p class="section-sub reveal">When a customer's battery hits red, they start thinking about leaving — not ordering another round. ChargeUp keeps them present and spending.</p>
-    <div class="why-grid reveal">
-      <div class="why-item"><span class="why-icon">⏱️</span><h3>Customers stay longer</h3><p>When their phone is charging, there's no reason to rush home. Dwell time directly drives revenue.</p></div>
-      <div class="why-item"><span class="why-icon">🙅</span><h3>Kills the charger question</h3><p>Staff interruptions for "can I borrow a charger?" stop immediately. It's self-serve, every time.</p></div>
-      <div class="why-item"><span class="why-icon">✨</span><h3>Looks the part</h3><p>A sleek, modern unit on your bar says you've thought about your customers' experience.</p></div>
-      <div class="why-item"><span class="why-icon">💵</span><h3>Revenue potential</h3><p>Depending on your model, every rental can generate income — completely passively.</p></div>
-      <div class="why-item"><span class="why-icon">📐</span><h3>Tiny footprint</h3><p>260mm × 240mm. Fits on a crowded bar counter without displacing anything else.</p></div>
-      <div class="why-item"><span class="why-icon">🔌</span><h3>Plug and go</h3><p>Standard NZ power socket. No installation. No tradespeople. No downtime.</p></div>
+    <div class="section-eyebrow reveal">The problem</div>
+    <h2 class="section-title reveal reveal-delay-1">Low phone battery creates<br>friction for customers</h2>
+    <div class="why-grid">
+
+      <div class="why-tile reveal reveal-delay-1">
+        <div class="why-icon">⏱️</div>
+        <h3>Customers tend to stay longer</h3>
+        <p>A customer who can keep their phone going can keep going too — one more round, one more coffee, another browse.</p>
+      </div>
+
+      <div class="why-tile reveal reveal-delay-2">
+        <div class="why-icon">🙋</div>
+        <h3>Fewer charger requests to staff</h3>
+        <p>Requests to borrow chargers, use behind-the-bar sockets, or find a cable can quietly eat into staff time.</p>
+      </div>
+
+      <div class="why-tile reveal reveal-delay-3">
+        <div class="why-icon">✨</div>
+        <h3>Looks the part</h3>
+        <p>Clean, compact unit that sits comfortably on a counter. It's a conversation piece rather than a liability.</p>
+      </div>
+
+      <div class="why-tile reveal reveal-delay-1">
+        <div class="why-icon">💵</div>
+        <h3>Revenue potential</h3>
+        <p>Depending on the model you choose, your venue can earn a share of every rental — low effort, ongoing income.</p>
+      </div>
+
+      <div class="why-tile reveal reveal-delay-2">
+        <div class="why-icon">📐</div>
+        <h3>Tiny footprint</h3>
+        <p>At around 260 × 243 × 240 mm, the unit takes up less counter space than a small speaker. It won't get in the way.</p>
+      </div>
+
+      <div class="why-tile reveal reveal-delay-3">
+        <div class="why-icon">🔌</div>
+        <h3>Plug and go</h3>
+        <p>Connects to a standard NZ power socket. No installation, no drilling, no technician required. It's ready when you are.</p>
+      </div>
+
     </div>
   </div>
 </section>
 
+<!-- ── VENUES ── -->
 <section class="venues-section" id="venues">
   <div class="container">
-    <div class="section-label reveal">Built for your venue</div>
-    <h2 class="reveal">See yourself here</h2>
-    <p class="section-sub reveal">Four venue types, one solution. Every one of them has the same problem — and the same fix.</p>
-    <div class="venue-grid reveal">
-      <div class="venue-card"><span class="venue-emoji">🍺</span><h3>Pubs & Bars</h3><ul><li>Late nights = dead phones = demand spike</li><li>Alcohol + social = phone-dependent customers</li><li>Taxis, payments, Uber — all need a charged phone</li><li>High weekend usage, near-zero management</li></ul></div>
-      <div class="venue-card"><span class="venue-emoji">☕</span><h3>Cafés & Restaurants</h3><ul><li>Remote workers extend their stay when charging</li><li>Daytime dwell time drives extra orders</li><li>No cables cluttering your tables</li><li>Subtle upgrade that customers notice</li></ul></div>
-      <div class="venue-card"><span class="venue-emoji">🛍️</span><h3>Shopping Centres</h3><ul><li>High footfall, high rental volume potential</li><li>Customers stay in-centre while charging elsewhere</li><li>Expand to multiple stations over time</li><li>Amenity that drives return visits</li></ul></div>
-      <div class="venue-card"><span class="venue-emoji">🎳</span><h3>Entertainment Venues</h3><ul><li>Long dwell sessions = high demand</li><li>Cinemas, arcades, bowling alleys</li><li>Customers take it with them, return it before leaving</li><li>No management overhead for staff</li></ul></div>
-    </div>
-  </div>
-</section>
+    <div class="section-eyebrow reveal">Built for your venue</div>
+    <h2 class="section-title reveal reveal-delay-1">Good fit for a range of<br>hospitality environments</h2>
+    <div class="venues-grid">
 
-<section class="how-section">
-  <div class="container">
-    <div class="section-label reveal">How it works</div>
-    <h2 class="reveal">Dead simple. That's the point.</h2>
-    <p class="section-sub reveal">Three steps. No app needed. Works with tap-to-pay, QR scan, or card.</p>
-    <div class="steps-row reveal">
-      <div class="step"><div class="step-num">1</div><h3>Tap or scan to rent</h3><p>Customer taps their card, phone, or scans a QR. Contactless — Apple Pay and Eftpos supported.</p></div>
-      <div class="step-arrow">→</div>
-      <div class="step"><div class="step-num">2</div><h3>Take it anywhere</h3><p>They keep the power bank with them — wandering the venue, sitting at a table, anywhere.</p></div>
-      <div class="step-arrow">→</div>
-      <div class="step"><div class="step-num">3</div><h3>Return to the station</h3><p>When done, it slots back in. Auto-charges and resets for the next user. You do nothing.</p></div>
-    </div>
-    <div class="how-reassurance reveal">
-      <div class="reassure-item"><span>🚫</span> No cables to manage</div>
-      <div class="reassure-item"><span>👤</span> No staff involvement required</div>
-      <div class="reassure-item"><span>📱</span> No app needed for customers</div>
-      <div class="reassure-item"><span>🔧</span> Remote monitoring via 4G</div>
-    </div>
-  </div>
-</section>
-
-<section class="commercial-section" id="commercial">
-  <div class="container">
-    <div class="section-label reveal">Commercial model</div>
-    <h2 class="reveal">Low risk to try.<br>Easy to scale.</h2>
-    <p class="section-sub reveal">Choose the arrangement that makes sense for your venue size and ambitions.</p>
-    <div class="commercial-grid reveal">
-      <div class="commercial-card"><div class="cc-tag">Option A</div><h3>Revenue Share</h3><p>We place the unit — you earn a share of every rental. No upfront cost, no fixed fees. Works best for higher-traffic venues.</p></div>
-      <div class="commercial-card featured"><div class="cc-tag">Option B — Most popular</div><h3>Fixed Monthly Rental</h3><p>One simple monthly fee. You keep 100% of the rental revenue. Predictable costs, full visibility.</p></div>
-      <div class="commercial-card"><div class="cc-tag">Option C</div><h3>Pilot Install</h3><p>Try it for a trial period in your venue. Low commitment, real data — see the usage before you decide.</p></div>
-    </div>
-    <div class="commercial-reassure reveal">
-      <div class="cr-item">Low upfront cost</div>
-      <div class="cr-item">Quick to install</div>
-      <div class="cr-item">Easy to remove if not right for you</div>
-      <div class="cr-item">RCM certified for NZ</div>
-      <div class="cr-item">Remote support included</div>
-    </div>
-  </div>
-</section>
-
-<section class="vs-section">
-  <div class="container">
-    <div class="section-label reveal">Why not cables or charging lockers?</div>
-    <h2 class="reveal">The better charging experience</h2>
-    <p class="section-sub reveal">Every other solution has a catch. ChargeUp doesn't.</p>
-    <div class="compare-table reveal">
-      <div class="compare-row header">
-        <div class="compare-cell">Feature</div>
-        <div class="compare-cell">Cables / Lockers</div>
-        <div class="compare-cell">ChargeUp Station</div>
+      <div class="venue-card reveal reveal-delay-1">
+        <div class="venue-emoji">🍺</div>
+        <h3>Pubs and bars</h3>
+        <ul>
+          <li>Customers can stay for another drink without worrying about a dead phone</li>
+          <li>Reduces behind-the-bar charger requests and the associated liability</li>
+          <li>Works across multi-room venues — customers keep the power bank on them</li>
+          <li>Revenue share model can suit high-footfall evening venues well</li>
+        </ul>
       </div>
-      <div class="compare-row"><div class="compare-cell">Customer keeps device with them</div><div class="compare-cell"><span class="cross">✗</span> Locked in place</div><div class="compare-cell"><span class="check">✓</span> Walks with them</div></div>
-      <div class="compare-row"><div class="compare-cell">Staff management required</div><div class="compare-cell"><span class="cross">✗</span> Constant</div><div class="compare-cell"><span class="check">✓</span> None</div></div>
-      <div class="compare-row"><div class="compare-cell">Works with all phone types</div><div class="compare-cell"><span class="cross">✗</span> Often not</div><div class="compare-cell"><span class="check">✓</span> All cables included</div></div>
-      <div class="compare-row"><div class="compare-cell">Lost or stolen cables</div><div class="compare-cell"><span class="cross">✗</span> Very common</div><div class="compare-cell"><span class="check">✓</span> Not possible</div></div>
-      <div class="compare-row"><div class="compare-cell">Revenue generation</div><div class="compare-cell"><span class="cross">✗</span> None</div><div class="compare-cell"><span class="check">✓</span> Per rental</div></div>
-      <div class="compare-row"><div class="compare-cell">Remote monitoring</div><div class="compare-cell"><span class="cross">✗</span> None</div><div class="compare-cell"><span class="check">✓</span> 4G + dashboard</div></div>
+
+      <div class="venue-card reveal reveal-delay-2">
+        <div class="venue-emoji">☕</div>
+        <h3>Cafés and restaurants</h3>
+        <ul>
+          <li>Laptop workers and long lunchers often need a top-up mid-session</li>
+          <li>Reduces requests to sit near a wall socket</li>
+          <li>A small, tidy unit fits naturally on or near the counter</li>
+          <li>Works whether customers are seated at a table or on the go</li>
+        </ul>
+      </div>
+
+      <div class="venue-card reveal reveal-delay-3">
+        <div class="venue-emoji">🏬</div>
+        <h3>Shopping centres</h3>
+        <ul>
+          <li>Shoppers with low battery tend to cut visits short</li>
+          <li>A station near an anchor store or food court can serve high volumes</li>
+          <li>Customers keep their power bank while moving between shops</li>
+          <li>Can complement existing customer service offerings</li>
+        </ul>
+      </div>
+
+      <div class="venue-card reveal reveal-delay-4">
+        <div class="venue-emoji">🎭</div>
+        <h3>Entertainment venues</h3>
+        <ul>
+          <li>Events mean people are on their phones — photos, tickets, social</li>
+          <li>Cinemas, theatres, and bowling alleys can offer it as a handy extra</li>
+          <li>Remote monitoring via 4G means no need for constant staff attention</li>
+          <li>Pilot install option suits venues that want to test usage before committing</li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>
 
+<!-- ── HOW IT WORKS ── -->
+<section class="how-section" id="how">
+  <div class="container">
+    <div class="section-eyebrow reveal">How it works</div>
+    <h2 class="section-title reveal reveal-delay-1">Simple for customers,<br>hands-off for your team</h2>
+    <div class="steps">
 
+      <div class="step reveal reveal-delay-1">
+        <div class="step-num">1</div>
+        <h3>Tap to rent</h3>
+        <p>Customers tap a contactless card, Apple Pay, or Google Pay — or scan a QR code — to unlock a power bank. No app needed for card and wallet payments.</p>
+      </div>
 
+      <div class="step reveal reveal-delay-2">
+        <div class="step-num">2</div>
+        <h3>Take it anywhere</h3>
+        <p>The power bank goes with them. They charge their device wherever they are in the venue — at their table, at the bar, wherever suits.</p>
+      </div>
+
+      <div class="step reveal reveal-delay-3">
+        <div class="step-num">3</div>
+        <h3>Return when done</h3>
+        <p>When they're finished, they return the power bank to any available slot on the same station. Simple, self-contained, and no staff needed.</p>
+      </div>
+
+    </div>
+
+    <div class="reassurance-strip reveal">
+      <div class="r-chip">No cables to manage</div>
+      <div class="r-chip">No staff involvement needed</div>
+      <div class="r-chip">No app needed for card payments</div>
+      <div class="r-chip">Remote monitoring via 4G</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMMERCIAL MODEL ── -->
+<section class="commercial-section" id="pricing">
+  <div class="container">
+    <div class="section-eyebrow reveal">Commercial model</div>
+    <h2 class="section-title reveal reveal-delay-1">Designed to be low-risk<br>from the start</h2>
+    <div class="model-grid">
+
+      <div class="model-card reveal reveal-delay-1">
+        <div class="model-badge">Option A</div>
+        <h3>Revenue share</h3>
+        <p>We place the unit and handle pricing centrally. Your venue earns a share of every rental with no outlay and no overhead. We look after the hardware.</p>
+        <div class="model-for"><strong>Good for:</strong> Higher-footfall venues where volume can drive a meaningful return without upfront commitment.</div>
+      </div>
+
+      <div class="model-card reveal reveal-delay-2">
+        <div class="model-badge">Option B</div>
+        <h3>Fixed monthly rental</h3>
+        <p>Pay an agreed monthly fee and keep all the rental income yourself. Predictable costs on your side, full revenue on yours.</p>
+        <div class="model-for"><strong>Good for:</strong> Venues that want price certainty and to own the customer relationship around the offering.</div>
+      </div>
+
+      <div class="model-card reveal reveal-delay-3">
+        <div class="model-badge">Option C</div>
+        <h3>Pilot install</h3>
+        <p>A short trial at low commitment. Get real usage data from your venue before deciding on a longer arrangement. Easy to remove if it's not the right fit.</p>
+        <div class="model-for"><strong>Good for:</strong> Venues that want to see actual numbers before making any longer-term decision.</div>
+      </div>
+
+    </div>
+
+    <div class="reassurance-strip reveal" style="margin-top: 40px;">
+      <div class="r-chip">Low upfront cost</div>
+      <div class="r-chip">Quick to install</div>
+      <div class="r-chip">Easy to remove</div>
+      <div class="r-chip">RCM-certified hardware available</div>
+      <div class="r-chip">Remote support included</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMPARISON TABLE ── -->
+<section class="compare-section" id="compare">
+  <div class="container">
+    <div class="section-eyebrow reveal">How it compares</div>
+    <h2 class="section-title reveal reveal-delay-1">ChargeUp vs the usual<br>alternatives</h2>
+    <div class="table-wrap reveal reveal-delay-2">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="highlight">ChargeUp NZ</th>
+            <th>Venue cables</th>
+            <th>Charging lockers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Customer keeps device with them</td>
+            <td class="highlight"><span class="yes">✓</span></td>
+            <td><span class="no">✗</span></td>
+            <td><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td>Staff management required</td>
+            <td class="highlight"><span class="yes">Minimal</span></td>
+            <td><span class="no">Yes</span></td>
+            <td><span class="partial">Some</span></td>
+          </tr>
+          <tr>
+            <td>Works with all phone types</td>
+            <td class="highlight"><span class="yes">✓</span></td>
+            <td><span class="partial">Depends on cables stocked</span></td>
+            <td><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Lost or damaged cables</td>
+            <td class="highlight"><span class="yes">Not applicable</span></td>
+            <td><span class="no">Common issue</span></td>
+            <td><span class="yes">Not applicable</span></td>
+          </tr>
+          <tr>
+            <td>Revenue generation for venue</td>
+            <td class="highlight"><span class="yes">✓ (model-dependent)</span></td>
+            <td><span class="no">None</span></td>
+            <td><span class="partial">Sometimes</span></td>
+          </tr>
+          <tr>
+            <td>Remote monitoring</td>
+            <td class="highlight"><span class="yes">✓ via 4G</span></td>
+            <td><span class="no">✗</span></td>
+            <td><span class="partial">Varies</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOUNDER NOTE ── -->
+<section class="founder-section" id="about">
+  <div class="container">
+    <div class="section-eyebrow reveal" style="text-align:center;">From the founder</div>
+    <div class="founder-card reveal reveal-delay-1">
+      <p class="founder-quote">I kept noticing people leave pubs and cafés early because their phone was about to die.</p>
+      <p class="founder-body">
+        It's not dramatic — they just start making excuses to go. Power bank rental has been common overseas for a few years now, and it felt like the right time to bring a practical version of it to New Zealand venues.
+      </p>
+      <p class="founder-body">
+        ChargeUp NZ is an early-stage rollout. We're currently looking for pilot venues in Auckland — places willing to try it with low commitment and see what the data looks like. The whole arrangement is designed to be easy to try and easy to exit if it's not working.
+      </p>
+      <p class="founder-body">
+        If you run a venue and the idea sounds interesting, I'd genuinely like to hear from you. No hard sell — just a conversation to see if it makes sense for your space.
+      </p>
+      <div class="founder-sig">
+        ChargeUp NZ
+        <span>Auckland, New Zealand</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
 <section class="contact-section" id="contact">
   <div class="container">
-    <div class="contact-grid">
+    <div class="contact-inner">
       <div class="contact-info">
-        <div class="section-label reveal">Get in touch</div>
-        <h2 class="reveal">Ready to try one in your venue?</h2>
-        <p class="reveal">Book a no-obligation demo or ask about pricing. We'll come to you, show you the unit, and answer every question.</p>
-        <div class="contact-details reveal">
-          <div class="contact-detail"><div class="contact-icon">📞</div><div>Call or text: <a href="tel:+6421000000">021 000 000</a></div></div>
-          <div class="contact-detail"><div class="contact-icon">💬</div><div>WhatsApp: <a href="https://wa.me/6421000000">021 000 000</a></div></div>
-          <div class="contact-detail"><div class="contact-icon">✉️</div><div>Email: <a href="mailto:hello@chargeupnz.co.nz">hello@chargeupnz.co.nz</a></div></div>
-          <div class="contact-detail"><div class="contact-icon">📍</div><div>Based in Auckland, serving across NZ</div></div>
+        <div class="section-eyebrow reveal" style="color: rgba(224,59,31,.9);">Get in touch</div>
+        <h2 class="reveal reveal-delay-1">Interested in<br>a pilot?</h2>
+        <p class="reveal reveal-delay-2">Auckland demos are available now. Remote demos are available for venues anywhere in New Zealand — happy to walk you through it over a video call.</p>
+
+        <div class="contact-detail reveal reveal-delay-3">
+          <div class="contact-detail-icon">📞</div>
+          <div>
+            <a href="tel:021000000">021 000 000</a>
+            <div style="font-size:.78rem; color: rgba(247,243,238,.4); margin-top:2px;">Call or text</div>
+          </div>
+        </div>
+
+        <div class="contact-detail reveal reveal-delay-3">
+          <div class="contact-detail-icon">💬</div>
+          <div>
+            <a href="https://wa.me/64210000000">WhatsApp: 021 000 000</a>
+            <div style="font-size:.78rem; color: rgba(247,243,238,.4); margin-top:2px;">Quick chat welcome</div>
+          </div>
+        </div>
+
+        <div class="contact-detail reveal reveal-delay-4">
+          <div class="contact-detail-icon">✉️</div>
+          <div>
+            <a href="mailto:hello@chargeupnz.co.nz">hello@chargeupnz.co.nz</a>
+            <div style="font-size:.78rem; color: rgba(247,243,238,.4); margin-top:2px;">We'll aim to reply same day</div>
+          </div>
+        </div>
+
+        <div class="contact-detail reveal reveal-delay-4">
+          <div class="contact-detail-icon">📍</div>
+          <div>
+            <span>Auckland, New Zealand</span>
+            <div style="font-size:.78rem; color: rgba(247,243,238,.4); margin-top:2px;">Nationwide remote demos available</div>
+          </div>
         </div>
       </div>
-      <div class="reveal">
-        <form class="contact-form" onsubmit="handleSubmit(event)">
+
+      <div class="form-card reveal reveal-delay-2">
+        <form id="enquiryForm" onsubmit="handleSubmit(event)">
           <div class="form-row">
-            <div class="form-group"><label>Your name</label><input type="text" placeholder="Sarah" required></div>
-            <div class="form-group"><label>Venue name</label><input type="text" placeholder="The Loaded Hog" required></div>
+            <div class="field">
+              <label for="name">Your name</label>
+              <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+            </div>
+            <div class="field">
+              <label for="venue">Venue name</label>
+              <input type="text" id="venue" name="venue" placeholder="The Crown Bar" required>
+            </div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Venue type</label>
-              <select required>
-                <option value="" disabled selected>Select type…</option>
-                <option>Pub or bar</option>
-                <option>Café or restaurant</option>
-                <option>Shopping centre / mall</option>
+            <div class="field">
+              <label for="type">Venue type</label>
+              <select id="type" name="type">
+                <option value="">Select…</option>
+                <option>Pub / bar</option>
+                <option>Café / restaurant</option>
+                <option>Shopping centre</option>
                 <option>Entertainment venue</option>
                 <option>Other</option>
               </select>
             </div>
-            <div class="form-group"><label>Location</label><input type="text" placeholder="Auckland CBD"></div>
+            <div class="field">
+              <label for="location">Location</label>
+              <input type="text" id="location" name="location" placeholder="Auckland CBD">
+            </div>
           </div>
-          <div class="form-group">
-            <label>Estimated daily footfall <span class="form-note">(optional — helps us size the proposal)</span></label>
-            <input type="text" placeholder="e.g. 200–300 per day">
+          <div class="field">
+            <label for="footfall">Estimated daily footfall <span style="text-transform:none; letter-spacing:0; font-weight:400; opacity:.6">(optional)</span></label>
+            <input type="text" id="footfall" name="footfall" placeholder="e.g. 100–200 customers">
           </div>
           <div class="form-row">
-            <div class="form-group"><label>Email</label><input type="email" placeholder="sarah@thevenue.co.nz" required></div>
-            <div class="form-group"><label>Phone</label><input type="tel" placeholder="021 123 4567"></div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="jane@yourvenue.co.nz" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="021 000 000">
+            </div>
           </div>
           <button type="submit" class="form-submit">Send enquiry →</button>
-          <p class="form-note">We'll reply within one business day. No spam, no pressure.</p>
         </form>
+        <div id="formSuccess" style="display:none; text-align:center; padding: 20px 0; color: #2ecc71; font-weight:600;">
+          ✓ Thanks — we'll be in touch soon.
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ── FOOTER ── -->
 <footer>
-  <div class="logo-f">Charge<span>Up</span> NZ</div>
-  <p>Power bank rental for NZ venues · Auckland-based · RCM certified equipment</p>
-  <p style="font-size:0.72rem;">© 2025 ChargeUp NZ</p>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Charge<span>Up</span> NZ</div>
+      <div class="footer-tagline">Self-service power bank rental for NZ hospitality venues</div>
+    </div>
+    <div class="footer-badges">
+      <span class="footer-badge">📍 Auckland-based</span>
+      <span class="footer-badge">✓ RCM-certified hardware available</span>
+      <span class="footer-badge">🇳🇿 New Zealand owned</span>
+    </div>
+    <div class="footer-copy">© 2025 ChargeUp NZ. All rights reserved.</div>
+  </div>
 </footer>
 
-<div class="sticky-cta">
-  <a href="https://wa.me/6421000000" class="sticky-btn wa">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+<!-- ── FLOATING BUTTONS ── -->
+<div class="floating-btns">
+  <a href="https://wa.me/64210000000" class="float-btn float-wa">
+    <span class="float-icon">💬</span>
     <span>WhatsApp</span>
   </a>
-  <a href="#contact" class="sticky-btn"><span>Book demo</span> →</a>
+  <a href="#contact" class="float-btn float-demo">
+    <span class="float-icon">📅</span>
+    <span>Book demo</span>
+  </a>
 </div>
 
 <script>
+  // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 
+  // Nav hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Form
   function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('.form-submit');
-    btn.textContent = '✓ Sent! We\'ll be in touch soon.';
-    btn.style.background = '#22c55e';
-    btn.disabled = true;
+    document.getElementById('enquiryForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
   }
-</script>
 
+  // Trigger reveals already in viewport on load
+  setTimeout(() => {
+    reveals.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('visible');
+    });
+  }, 100);
+</script>
 </body>
 </html>
