@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ChargeUp NZ — Power Bank Rental for Venues</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
 
 <style>
   :root {
@@ -28,7 +26,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--surface);
     color: var(--ink);
     line-height: 1.6;
@@ -47,7 +45,7 @@
   }
 
   .nav-logo {
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-weight: 800;
     font-size: 1.3rem;
     color: var(--ink);
@@ -127,7 +125,7 @@
   }
 
   h1 {
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: clamp(2.6rem, 5vw, 4rem);
     font-weight: 800;
     line-height: 1.08;
@@ -216,7 +214,7 @@
 
   .stat-item strong {
     display: block;
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 1.6rem;
     font-weight: 800;
     color: var(--ink);
@@ -430,7 +428,7 @@
   }
 
   h2 {
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: clamp(1.8rem, 3.5vw, 2.6rem);
     font-weight: 800;
     line-height: 1.12;
@@ -479,7 +477,7 @@
   }
 
   .why-item h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: 0.4rem;
@@ -520,7 +518,7 @@
   .venue-emoji { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
 
   .venue-card h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 1.1rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
@@ -581,14 +579,14 @@
     color: var(--white);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-weight: 800;
     font-size: 1rem;
     margin: 0 auto 1rem;
   }
 
   .step h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
@@ -650,7 +648,7 @@
   }
 
   .commercial-card h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 1.15rem;
     font-weight: 800;
     margin-bottom: 0.5rem;
@@ -711,7 +709,7 @@
   .compare-cell:last-child { border-right: none; }
 
   .compare-row.header .compare-cell {
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-weight: 700;
     border-right-color: rgba(255,255,255,0.1);
     font-size: 0.82rem;
@@ -725,50 +723,6 @@
 
   .check { color: #22c55e; font-weight: 700; margin-right: 0.3rem; }
   .cross { color: #ef4444; font-weight: 700; margin-right: 0.3rem; }
-
-  /* ── TESTIMONIALS ── */
-  .testi-section { background: var(--ink); color: var(--white); }
-  .testi-section h2 { color: var(--white); }
-  .testi-section .section-label { color: var(--accent-warm); }
-  .testi-section .section-sub { color: rgba(255,255,255,0.5); }
-
-  .testi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .testi-card {
-    background: rgba(255,255,255,0.05);
-    border-radius: var(--radius);
-    padding: 2rem;
-    border: 1px solid rgba(255,255,255,0.08);
-    transition: background 0.2s;
-  }
-
-  .testi-card:hover { background: rgba(255,255,255,0.08); }
-
-  .testi-stars { color: var(--accent-warm); font-size: 0.85rem; margin-bottom: 1rem; }
-
-  .testi-card blockquote {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.8);
-    font-style: italic;
-    font-weight: 300;
-    margin-bottom: 1.25rem;
-  }
-
-  .testi-author {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.4);
-  }
-
-  .testi-author strong {
-    color: rgba(255,255,255,0.7);
-    display: block;
-    font-weight: 600;
-  }
 
   /* ── ROI CALC ── */
   .roi-section { background: var(--surface); }
@@ -800,7 +754,7 @@
   }
 
   .roi-val {
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-weight: 800;
     font-size: 1rem;
     min-width: 60px;
@@ -820,7 +774,7 @@
   .roi-result-label { font-size: 0.85rem; color: var(--ink-mid); }
 
   .roi-result-number {
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 2rem;
     font-weight: 800;
     color: var(--accent);
@@ -906,7 +860,7 @@
     padding: 0.8rem 1rem;
     border: 1.5px solid var(--border);
     border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 0.9rem;
     color: var(--ink);
     background: var(--surface);
@@ -930,7 +884,7 @@
     border: none;
     padding: 0.9rem 2.5rem;
     border-radius: 50px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-weight: 600;
     font-size: 0.95rem;
     cursor: pointer;
@@ -960,7 +914,7 @@
   }
 
   footer .logo-f {
-    font-family: 'Syne', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-weight: 800;
     font-size: 1.1rem;
     color: var(--white);
@@ -1324,42 +1278,6 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="testi-section">
-  <div class="container">
-    <div class="section-label reveal">Early feedback</div>
-    <h2 class="reveal">What venue owners say</h2>
-    <p class="section-sub reveal">Typical outcomes from pilot venues across hospitality and entertainment.</p>
-
-    <div class="testi-grid reveal">
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <blockquote>"Customers use it constantly on Friday nights. It's one of those things people didn't realise they needed until it was there."</blockquote>
-        <div class="testi-author">
-          <strong>Bar manager, central Auckland</strong>
-          Pub with evening trade
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <blockquote>"The charger-request interruptions have basically stopped. My team are happier and our counter looks more modern."</blockquote>
-        <div class="testi-author">
-          <strong>Owner, Wellington café</strong>
-          High daytime footfall
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <blockquote>"We noticed people browsing longer after getting a power bank. Makes sense — when you're not watching your battery, you relax."</blockquote>
-        <div class="testi-author">
-          <strong>Shopping centre manager</strong>
-          Suburban retail centre
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ROI CALCULATOR -->
 <section class="roi-section">
   <div class="container">
@@ -1416,7 +1334,7 @@
           </div>
           <div class="contact-detail">
             <div class="contact-icon">✉️</div>
-            <div>Email: <a href="mailto:hello@chargeupnz.co.nz">hello@chargeupnz.co.nz</a></div>
+            <div>Email: <a href="/cdn-cgi/l/email-protection#c3aba6afafac83a0aba2b1a4a6b6b3adb9eda0acedadb9"><span class="__cf_email__" data-cfemail="472f222b2b2807242f263520223237293d69242869293d">[email&#160;protected]</span></a></div>
           </div>
           <div class="contact-detail">
             <div class="contact-icon">📍</div>
@@ -1498,7 +1416,7 @@
   </a>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ROI calculator
   const customersEl = document.getElementById('customers');
   const rateEl = document.getElementById('rate');
@@ -1535,14 +1453,4 @@
   reveals.forEach(el => observer.observe(el));
 
   // Form
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.form-submit');
-    btn.textContent = '✓ Sent! We\'ll be in touch soon.';
-    btn.style.background = '#22c55e';
-    btn.disabled = true;
-  }
-</script>
-
-</body>
-</html>
+  function han
